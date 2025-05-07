@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -29,6 +30,9 @@ public class UserMain extends BaseEntity {
     private String password;
     private String phone;
     private String email;
+    private String avatarUrl;
+    private LocalDateTime dob;
+    private LocalDateTime lastLogin;
 
     @Enumerated(EnumType.STRING)
     private SaleUserRole role;

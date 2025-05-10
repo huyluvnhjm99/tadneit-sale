@@ -38,7 +38,7 @@ public class BaseFilter {
         return (size == null || size <= 0) ? DEFAULT_PAGE_SIZE : size;
     }
 
-    public org.springframework.data.domain.Sort getSortOrDefault() {
+    public Sort getSortOrDefault() {
         if (this.sort == null || this.sort.isEmpty()) {
             return DEFAULT_SORT;
         }

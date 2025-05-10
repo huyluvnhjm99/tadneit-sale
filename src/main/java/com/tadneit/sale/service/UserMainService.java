@@ -10,5 +10,7 @@ import org.springframework.data.domain.Page;
 public interface UserMainService {
     UserDetailDTO getUserProfile() throws BusinessException;
 
+    UserDetailDTO saveUserProfile(UserDetailDTO dto) throws BusinessException;
+
     Page<UserMainDTO> retrieveAllUserMainDTOs(UserMainFilter filter);
 }

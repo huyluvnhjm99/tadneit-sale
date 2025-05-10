@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -37,6 +38,9 @@ public class UserMainDTO extends BaseDTO {
     private String password;
     private String phone;
     private String email;
+    private String avatarUrl;
+    private LocalDateTime dob;
+    private LocalDateTime lastLogin;
     private SaleUserRole role;
     private SaleUserStatus status;
 }

@@ -10,6 +10,7 @@ import com.tadneit.sale.service.UserMainService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,12 @@ public class UserMainController {
     @PostMapping("/profile")
     public ResponseEntity<UserDetailDTO> getUserProfile() throws BusinessException {
         return ResponseEntity.ok(userMainService.getUserProfile());
+    }
+
+    @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER, SaleUserRole.CLIENT})
+    @PutMapping("/save")
+    public ResponseEntity<UserDetailDTO> saveUserProfile(@RequestBody UserDetailDTO userDetailDTO) throws BusinessException {
+        return ResponseEntity.ok(userMainService.saveUserProfile(userDetailDTO));
     }
 
     @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})

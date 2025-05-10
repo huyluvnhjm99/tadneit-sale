@@ -41,6 +41,17 @@ public class UserMainServiceImpl implements UserMainService {
     }
 
     @Override
+    public UserDetailDTO saveUserProfile(UserDetailDTO dto) throws BusinessException{
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserMain userMain = userMainRepository.findByUsername(username).orElseThrow(() -> new BusinessException(MessageResponse.AUTHENTICATION_USER_NOT_FOUND));
+        userMain.setFullName(dto.getFullName());
+        userMain.setEmail(dto.getEmail());
+        userMain.setPhone(dto.getPhone());
+        userMain.setDob(dto.getDob());
+        return userMainMapper.toDetailDTO(userMainRepository.save(userMain));
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Page<UserMainDTO> retrieveAllUserMainDTOs(UserMainFilter filter) {
 

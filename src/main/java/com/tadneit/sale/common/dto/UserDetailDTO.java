@@ -26,4 +26,5 @@ public class UserDetailDTO extends BaseDTO {
     private LocalDateTime lastLogin;
     private SaleUserRole role;
     private SaleUserStatus status;
+    private FileDTO avatar;
 }

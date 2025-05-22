@@ -16,4 +16,10 @@ public final class MessageResponse {
     public static final String PASSWORD_NOTNULL = "userPasswordNotnull";
     public static final String PASSWORD_SIZE = "userPasswordSizeSixTwenty";
     public static final String PASSWORD_PATTERN = "userPasswordPattern";
+
+    // Upload file messages
+    public static final String UPLOAD_FAILED = "uploadFileFailed";
+    public static final String FILE_IS_EMPTY = "fileIsEmpty";
+    public static final String FILES_SIZE_TOO_BIG = "fileSizeTooBig";
+    public static final String FILE_TYPE_IS_INVALID = "fileTypeIsInvalid";
 }

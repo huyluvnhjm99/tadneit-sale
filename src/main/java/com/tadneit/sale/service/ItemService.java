@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface ItemService {
+    long countItem();
     Page<ItemDTO> searchItems(ItemFilter request);
     ItemDTO getById(UUID id) throws BusinessException;
     ItemDTO create(ItemDTO dto);

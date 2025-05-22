@@ -25,6 +25,11 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @GetMapping("/count")
+    public long countCategory() {
+        return categoryService.countCategory();
+    }
+
     @GetMapping
     public List<CategoryDTO> getAll() {
         return categoryService.getAll();
@@ -38,13 +43,13 @@ public class CategoryController {
     @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})
     @PostMapping
     public CategoryDTO create(@RequestBody CategoryDTO dto) {
-        return categoryService.create(dto);
+        return categoryService.createOrUpdate(dto);
     }
 
     @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})
     @PutMapping
     public CategoryDTO update(@RequestBody CategoryDTO dto) throws BusinessException {
-        return categoryService.update(dto);
+        return categoryService.createOrUpdate(dto);
     }
 
     @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})

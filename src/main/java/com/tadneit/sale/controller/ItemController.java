@@ -26,6 +26,11 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    @GetMapping("/count")
+    public long countItem() {
+        return itemService.countItem();
+    }
+
     @GetMapping
     public Page<ItemDTO> searchItems(ItemFilter filter) {
         return itemService.searchItems(filter);

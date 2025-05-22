@@ -36,6 +36,10 @@ public class ItemServiceImpl implements ItemService {
     private final ItemMapper itemMapper;
     private final CategoryRepository categoryRepository;
 
+    public long countItem() {
+        return categoryRepository.count();
+    }
+
     public Page<ItemDTO> searchItems(ItemFilter itemFilter) {
         Specification<Item> spec = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();

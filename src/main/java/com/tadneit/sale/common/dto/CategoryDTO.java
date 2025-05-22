@@ -15,4 +15,5 @@ public class CategoryDTO extends BaseDTO {
     private UUID id;
     private String name;
     private String description;
+    private FileDTO img;
 }

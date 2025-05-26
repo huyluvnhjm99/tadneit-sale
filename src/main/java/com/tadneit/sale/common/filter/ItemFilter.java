@@ -13,4 +13,7 @@ public class ItemFilter extends BaseFilter {
     private String name;
     private String description;
     private String categoryName;
+    private String brand;
+    private Double priceFrom;
+    private Double priceTo;
 }

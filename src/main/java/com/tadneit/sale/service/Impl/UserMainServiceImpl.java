@@ -4,7 +4,6 @@ import com.tadneit.sale.common.constant.MessageResponse;
 import com.tadneit.sale.common.dto.FileDTO;
 import com.tadneit.sale.common.dto.UserDetailDTO;
 import com.tadneit.sale.common.dto.UserMainDTO;
-import com.tadneit.sale.common.entity.Category;
 import com.tadneit.sale.common.entity.UserMain;
 import com.tadneit.sale.common.enumeration.FileMappingType;
 import com.tadneit.sale.common.filter.UserMainFilter;
@@ -45,7 +44,7 @@ public class UserMainServiceImpl implements UserMainService {
         final List<FileDTO> categoryIcons = fileService.getFileByMapping(FileMappingType.PROFILE, Collections.singletonList(userMain.getId()));
         UserDetailDTO result = userMainMapper.toDetailDTO(userMain);
         if (!CollectionUtils.isEmpty(categoryIcons)) {
-            final String fileUrl = fileService.getUrl(categoryIcons.getLast().getFilePath());
+            final String fileUrl = fileService.getSignedUrl(categoryIcons.getLast().getFilePath());
             result.setAvatarUrl(fileUrl);
         }
 

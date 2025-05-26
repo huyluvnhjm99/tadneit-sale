@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseFilter {
+    private String searchKey;
     private String createdBy;
     private String updatedBy;
     private LocalDateTime createdDate;

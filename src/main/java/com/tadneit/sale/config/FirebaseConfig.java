@@ -60,4 +60,8 @@ public class FirebaseConfig {
         return StorageClient.getInstance(firebaseApp());
     }
 
+    @Bean
+    public String bucketName() throws IOException {
+        return storageClient().bucket().getName();
+    }
 }

@@ -35,7 +35,7 @@ public class FileController {
     //@AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})
     @GetMapping("/l")
     public String getFileUrl(String path) {
-        return fileService.getUrl(path);
+        return fileService.getSignedUrl(path);
     }
 
 //    @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})

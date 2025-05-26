@@ -9,12 +9,14 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FileService {
+    String getSignedUrl(String filePath);
     String getUrl(String filePath);
     List<FileDTO> getFileByMapping(FileMappingType type, List<UUID> mappingIds);
 
     void deleteFileByMapping(FileMappingType type, List<UUID> mappingIds);
 
     FileDTO saveImage(FileDTO dto);
+    List<FileDTO> saveImages(List<FileDTO> dtos);
     FileDTO uploadFile(MultipartFile file);
     FileDTO uploadImage(MultipartFile file) throws BusinessException;
 }

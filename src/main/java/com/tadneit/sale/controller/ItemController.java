@@ -32,7 +32,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public Page<ItemDTO> searchItems(ItemFilter filter) {
+    public Page<ItemDTO> searchItems(@RequestBody ItemFilter filter) {
         return itemService.searchItems(filter);
     }
 
@@ -43,7 +43,7 @@ public class ItemController {
 
     @AllowAccess(toUserRoles = {SaleUserRole.ADMINISTRATOR, SaleUserRole.MANAGER})
     @PostMapping
-    public ItemDTO create(@RequestBody ItemDTO dto) {
+    public ItemDTO create(@RequestBody ItemDTO dto) throws BusinessException {
         return itemService.create(dto);
     }
 

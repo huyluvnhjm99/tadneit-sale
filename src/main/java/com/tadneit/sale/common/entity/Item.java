@@ -26,7 +26,9 @@ public class Item extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    private String brand;
     private String name;
+    private Double price;
 
     @Column(length = 1000)
     private String description;

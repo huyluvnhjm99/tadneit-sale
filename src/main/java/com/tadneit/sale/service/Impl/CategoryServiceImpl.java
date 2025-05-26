@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
                     CategoryDTO dto = categoryMapper.toDTO(c);
                     if (categoryIconsMap.containsKey(dto.getId())) {
                         FileDTO categoryIcon = categoryIconsMap.get(dto.getId());
-                        categoryIcon.setUrl(fileService.getUrl(categoryIcon.getFilePath()));
+                        categoryIcon.setUrl(fileService.getSignedUrl(categoryIcon.getFilePath()));
                         dto.setImg(categoryIcon);
                     }
                     return dto;

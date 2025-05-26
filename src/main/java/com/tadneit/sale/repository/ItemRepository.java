@@ -7,5 +7,7 @@ import java.util.UUID;
 
 @Repository
 public interface ItemRepository extends BaseRepository<Item, UUID> {
+
+    boolean existsItemByName(String name);
 }
 

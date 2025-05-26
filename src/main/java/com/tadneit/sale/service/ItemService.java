@@ -14,8 +14,7 @@ public interface ItemService {
     long countItem();
     Page<ItemDTO> searchItems(ItemFilter request);
     ItemDTO getById(UUID id) throws BusinessException;
-    ItemDTO create(ItemDTO dto);
+    ItemDTO create(ItemDTO dto) throws BusinessException;
     ItemDTO update(ItemDTO dto) throws BusinessException;
     void delete(UUID id);
-    Set<Category> fetchCategories(Set<CategoryDTO> categoryDTOs);
 }

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class FileServiceImpl implements FileService {
     private final StorageClient storageClient;
     private final Firestore firestore;
     private final Storage storage;
+    private final String bucketName;
 
     private static final Cache<String, String> IMAGE_SIGN_URL_CACHE = Caffeine.newBuilder()
             .maximumSize(1000)
@@ -65,9 +67,9 @@ public class FileServiceImpl implements FileService {
     private static final String IMG_PATH = "img/";
 
     @Override
-    public String getUrl(String filePath) {
+    public String getSignedUrl(String filePath) {
         return IMAGE_SIGN_URL_CACHE.get(filePath, value -> {
-            BlobInfo blobInfo = BlobInfo.newBuilder(storageClient.bucket().getName(), filePath).build();
+            BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, filePath).build();
 
             URL signedUrl = storage.signUrl(
                     blobInfo,
@@ -80,13 +82,29 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public String getUrl(String filePath) {
+        return IMAGE_SIGN_URL_CACHE.get(filePath, value -> {
+            final String encodedPath = java.net.URLEncoder.encode(filePath, StandardCharsets.UTF_8);
+            return String.format(
+                    "https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media",
+                    bucketName,
+                    encodedPath
+            );
+        });
+    }
+
+    @Override
     public List<FileDTO> getFileByMapping(FileMappingType type, List<UUID> mappingIds) {
         List<File> files = fileRepository.findAllByMappingTypeAndMappingIdIn(type, mappingIds);
         if (CollectionUtils.isEmpty(files)) {
             return null;
         }
 
-        return files.stream().map(fileMapper::toDTO).toList();
+        return files.stream().map((file -> {
+            FileDTO fileDTO = fileMapper.toDTO(file);
+            fileDTO.setUrl(getSignedUrl(fileDTO.getFilePath()));
+            return fileDTO;
+        })).toList();
     }
 
     @Override
@@ -99,6 +117,12 @@ public class FileServiceImpl implements FileService {
         File file = fileMapper.toEntity(dto);
         fileRepository.save(file);
         return fileMapper.toDTO(file);
+    }
+
+    @Override
+    public List<FileDTO> saveImages(List<FileDTO> fileDTOS) {
+        List<File> files = fileRepository.saveAll(fileDTOS.stream().map(fileMapper::toEntity).toList());
+        return files.stream().map(fileMapper::toDTO).toList();
     }
 
     @Override
@@ -125,7 +149,7 @@ public class FileServiceImpl implements FileService {
         final String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
         final String filePath = path + fileName;
         storageClient.bucket().create(filePath, file.getBytes(), file.getContentType());
-        final String downloadUrl = "https://storage.googleapis.com/" + storageClient.bucket().getName() + "/" + filePath;
+        final String downloadUrl = "https://storage.googleapis.com/" + bucketName + "/" + filePath;
 
         Map<String, Object> fileMetadata = new HashMap<>();
         fileMetadata.put("fileName", fileName);

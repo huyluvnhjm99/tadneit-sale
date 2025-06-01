@@ -111,6 +111,13 @@ public class ItemServiceImpl implements ItemService {
                 );
             }
 
+            if (itemFilter.getCategoryId() != null) {
+                Join<Item, Category> categories = root.join("categories", JoinType.LEFT);
+                predicates.add(
+                        criteriaBuilder.equal(categories.get("id"), itemFilter.getCategoryId())
+                );
+            }
+
             if (itemFilter.getCreatedDateFrom() != null) {
                 predicates.add(
                         criteriaBuilder.greaterThanOrEqualTo(

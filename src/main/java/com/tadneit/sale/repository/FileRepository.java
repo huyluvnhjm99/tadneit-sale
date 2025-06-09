@@ -5,7 +5,6 @@ import com.tadneit.sale.common.enumeration.FileMappingType;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 

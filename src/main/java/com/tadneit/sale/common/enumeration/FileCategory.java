@@ -4,5 +4,6 @@ public enum FileCategory {
     IMAGE,
     VIDEO,
     TEXT,
+    BANNER,
     OTHER
 }

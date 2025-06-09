@@ -4,5 +4,6 @@ public enum FileMappingType {
     CATEGORY,
     ITEM,
     PROFILE,
+    BANNER,
     OTHER
 }

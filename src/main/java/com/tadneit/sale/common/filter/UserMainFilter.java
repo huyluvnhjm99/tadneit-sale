@@ -1,7 +1,5 @@
 package com.tadneit.sale.common.filter;
 
-import com.tadneit.sale.common.enumeration.SaleUserRole;
-import com.tadneit.sale.common.enumeration.SaleUserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
